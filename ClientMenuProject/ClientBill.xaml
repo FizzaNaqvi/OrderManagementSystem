@@ -1,0 +1,39 @@
+﻿<Window x:Class="ClientMenuProject.ClientBill"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ClientMenuProject"
+        mc:Ignorable="d"
+        Title="ClientBill" MinHeight="200" Height="Auto" Width="500" >
+    <Grid Height="Auto">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <DataGrid Name="BillGrid" ItemsSource="{Binding SelectedItems, Mode=TwoWay}" AutoGenerateColumns="False" Grid.Row="0" CanUserAddRows="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Item" Width="*" Binding="{Binding Name}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Per item Price" Binding="{Binding Price}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Quantity" Binding="{Binding quantity}"></DataGridTextColumn >
+                <DataGridTextColumn Header="Total" Width="60" Binding="{Binding totalPrice}"></DataGridTextColumn>
+                <DataGridTemplateColumn Header="options" x:Name="options">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Height="15" Width="15" Stretch="Fill" Source="C:\Users\fnaqvi\OneDrive - TRAFiX, LLC\Desktop\add.jfif" ToolTip="Add" MouseDown="AddSelection" ></Image>
+                                <Image Height="15" Width="15" Stretch="Fill" Source="C:\Users\fnaqvi\OneDrive - TRAFiX, LLC\Desktop\delete.jfif" ToolTip="Delete" MouseDown="DeleteSelection" ></Image>
+                                <Image Height="15" Width="15" Stretch="Fill" Source="C:\Users\fnaqvi\OneDrive - TRAFiX, LLC\Desktop\minus.jfif"  MouseDown="Image_MouseDown" ></Image>
+                              </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+       
+       </DataGrid>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Grid.ColumnSpan="4">
+            <Label Margin="0,0,15,0" FontWeight="Bold">Total Price:</Label>
+            <Label Width="100" Name="subTotal" Content="0.00" FontWeight="Bold"></Label>
+        </StackPanel>
+    </Grid>
+</Window>

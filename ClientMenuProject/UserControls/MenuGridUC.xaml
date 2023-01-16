@@ -1,0 +1,52 @@
+﻿<UserControl x:Class="ClientMenuProject.UserControls.MenuGridUC"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ClientMenuProject.UserControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <DataGrid  Name="menuGrid" ItemsSource="{Binding FilteredMenuItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" AutoGenerateColumns="False" Background="White" FontSize="12" 
+               GridLinesVisibility="None" CanUserAddRows="False">
+        <DataGrid.Columns>
+            <DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="50" Visibility="Hidden" ></DataGridTextColumn>
+            <!--<DataGridTextColumn Header="SNO" Binding="{Binding sNo}" Width="50" ></DataGridTextColumn>-->
+            <DataGridTemplateColumn  Width="50">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <Image Height="25" Width="20" Stretch="Uniform" Source="C:\Users\fnaqvi\source\repos\AdminMenuProject\MenuClassLibrary\Images\arrow.png" IsEnabled="False"></Image>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            <DataGridTemplateColumn Header="Menu" Width="*" >
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <Label Content="{Binding Name, Mode=TwoWay}" Height="Auto"  FontFamily="Comic Sans MS" FontSize="16" Margin="0,-2,0,-15" VerticalContentAlignment="Bottom" ></Label>
+                            <Label Content="{Binding Desc, Mode=TwoWay}" FontFamily="Comic Sans MS" FontSize="12" Margin="0" VerticalContentAlignment="Top"  ></Label>
+                        </StackPanel>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            <!--<DataGridTextColumn Header="Item Name" Binding="{Binding itemName}" Width="*"></DataGridTextColumn>-->
+            <DataGridTextColumn Header="Price" Binding="{Binding Price, Mode=TwoWay}" Width="Auto" FontFamily="Comic Sans MS" FontSize="16" FontWeight="Bold"></DataGridTextColumn>
+            <DataGridTemplateColumn Header="Option(s)" Width="Auto" MaxWidth="70" MinWidth="60">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <!--<Button Command="Delete">-->
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Image Height="15" Width="15" Stretch="Fill" Source="C:\Users\fnaqvi\source\repos\AdminMenuProject\MenuClassLibrary\Images\add.jfif" ToolTip="Add To Cart" MouseDown="AddToCart" ></Image>
+                            </StackPanel>
+
+                        </StackPanel>
+
+                        <!--</Button>-->
+
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+        </DataGrid.Columns>
+    </DataGrid>
+
+</UserControl>

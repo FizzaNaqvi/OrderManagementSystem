@@ -1,0 +1,170 @@
+﻿<Window x:Class="ClientMenuProject.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ClientMenuProject"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        mc:Ignorable="d"
+        xmlns:uc="clr-namespace:ClientMenuProject.UserControls"
+        Title="User" Width="820" Height="Auto">
+    <Window.Resources>
+        <Style x:Key="alignment" TargetType="TextBlock">
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="100"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <StackPanel Background="Red"  Orientation="Horizontal" Grid.Row="0">
+            <Ellipse Height="40" Width="40" Margin="10,0,300,0" Name="back" ToolTip="Order?" MouseDown="BackToMenu_Click">
+                <Ellipse.Fill>
+                    <ImageBrush Stretch="Fill" ImageSource="C:\Users\fnaqvi\source\repos\AdminMenuProject\MenuClassLibrary\Images\back1.jfif"></ImageBrush>
+                </Ellipse.Fill>
+            </Ellipse>
+            <Label Height="50" Content="MENU" Name="mainLbl" HorizontalContentAlignment="Center" FontSize="25" Foreground="White" FontWeight="Black" Padding="3" VerticalContentAlignment="Center" ></Label>
+
+            <Ellipse Height="40" Width="40" Margin="320,0,10,0" Name="reset" ToolTip="Refresh" MouseDown="Reset_MouseDown">
+                <Ellipse.Fill>
+                    <ImageBrush Stretch="Fill" ImageSource="C:\Users\fnaqvi\source\repos\AdminMenuProject\MenuClassLibrary\Images\refresh1.jpg"></ImageBrush>
+                </Ellipse.Fill>
+            </Ellipse>
+        </StackPanel>
+        <!--<Label Height="50" Content="MENU" HorizontalContentAlignment="Center" FontSize="25" Background="Red" Foreground="White" FontWeight="Black" Padding="3" VerticalContentAlignment="Center" Grid.Row="0"></Label>-->
+
+        <TabControl Grid.Row="1" Margin="0" SelectionChanged="Tab_SelectionChanged" Name="tab" FontFamily="Comic Sans MS"  FontSize="18"  Foreground="Black" FontWeight="DemiBold" >
+            <TabItem Header="Starter"  >
+                <uc:MenuGridUC x:Name="xyz"/>
+            </TabItem>
+            <TabItem Header="B.B.Q." Width="120" >
+                <uc:MenuGridUC  x:Name="xyz1"/>
+            </TabItem>
+            <TabItem Header="Broast"   Width="120">
+                <uc:MenuGridUC x:Name="xyz2"/>
+            </TabItem>
+            <TabItem Header="Burgers"  Width="120">
+                <uc:MenuGridUC x:Name="xyz4"/>
+            </TabItem>
+            <TabItem Header="Sandwich"   Width="120">
+                <uc:MenuGridUC x:Name="xyz3"/>
+            </TabItem>
+            <TabItem Header="Roll"   Width="120">
+                <uc:MenuGridUC x:Name="xyz5"/>
+            </TabItem>
+            <TabItem Header="Others"    Width="120">
+                <uc:MenuGridUC x:Name="xyz6"/>
+            </TabItem>
+
+        </TabControl>
+
+        <!--Bill Grid-->
+        <Grid Height="Auto" Grid.Row="1" Visibility="Collapsed" Name="BillGrid" >
+           
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <DataGrid  ItemsSource="{Binding SelectedItems, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" IsReadOnly="True" Name="BillData" FontWeight="Black" Grid.Row="0" CanUserAddRows="False"  Background="White" FontFamily="Comic Sans MS" GridLinesVisibility="None">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Items" Width="*" Binding="{Binding Name}" FontSize="14" ></DataGridTextColumn>
+                    <DataGridTextColumn Header="Per item Price" Binding="{Binding Price}" ElementStyle="{StaticResource alignment}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Quantity" Binding="{Binding quantity, Mode=TwoWay}" ElementStyle="{StaticResource alignment}"></DataGridTextColumn >
+                    <DataGridTextColumn Header="Total" Width="60" Binding="{Binding totalPrice}" ElementStyle="{StaticResource alignment}"></DataGridTextColumn>
+                    <DataGridTemplateColumn Header="options" x:Name="options" Width="60">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Height="15" Width="15" Stretch="Fill" Source="C:\Users\fnaqvi\source\repos\AdminMenuProject\MenuClassLibrary\Images\add.jfif" Margin="5,0,0,0"  ToolTip="Add" MouseDown="AddSelection" ></Image>
+                                    <Image Height="15" Width="15" Margin="2" Stretch="Fill" Source="C:\Users\fnaqvi\source\repos\AdminMenuProject\MenuClassLibrary\Images\deletebtn1.jfif" ToolTip="Delete" MouseDown="DeleteSelection" ></Image>
+                                    <Image Height="15" Width="15" Stretch="Fill" Source="C:\Users\fnaqvi\source\repos\AdminMenuProject\MenuClassLibrary\Images\minus.jfif"  MouseDown="Image_MouseDown" ></Image>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+
+            </DataGrid>
+            <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Grid.ColumnSpan="4">
+                <Label Margin="0,0,15,0" FontWeight="Bold">Total Price:</Label>
+                <Label Width="100" Name="subTotal" Content="0.00" FontWeight="Bold"></Label>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="1" Visibility="Collapsed" Name="OrderPlacedGrid">
+            <Grid.Background>
+                <ImageBrush ImageSource="C:\Users\fnaqvi\OneDrive - TRAFiX, LLC\Desktop\order.jfif"/>
+            </Grid.Background>
+            <!--<StackPanel  Orientation="Vertical">-->
+            <StackPanel HorizontalAlignment="Left" Orientation="Vertical">
+                <Image MouseDown="CancelOrder_MouseDown" Margin="10,10,10,0" VerticalAlignment="Top" HorizontalAlignment="Right" Name="cancelOrder" ToolTip="Cancel Order" Height="70" Width="60" Source="C:\Users\fnaqvi\source\repos\AdminMenuProject\MenuClassLibrary\Images\cancel.jfif" ></Image>
+                <!--<Label  FontFamily="Comic Sans MS" FontWeight="Black" FontSize="18" Name="dateTime"  Foreground="Gray"/>-->
+
+            </StackPanel>
+            <StackPanel HorizontalAlignment="Right" >
+                <Image MouseDown="ViewBill_Click" Margin="0,10,10,0" VerticalAlignment="Top" HorizontalAlignment="Right" Name="viewBill" ToolTip="View Bill" Height="50" Source="C:\Users\fnaqvi\source\repos\AdminMenuProject\MenuClassLibrary\Images\bill.jfif" ></Image>
+
+                <Label FontFamily="Comic Sans MS" FontWeight="Black" FontSize="12"  Foreground="Gray" MouseDown="ViewBill_Click">View Bill here</Label>
+            </StackPanel>
+            <!--<Label FontFamily="Comic Sans MS"  FontWeight="Bold" FontSize="18" HorizontalAlignment="Right" HorizontalContentAlignment="Right" Margin="0,0,5,0">
+                <Hyperlink NavigateUri=""  ToolTip="Cancel" Click="Cancel_Click"  Foreground="CadetBlue">
+                       Cancel Order.?
+                    </Hyperlink>
+                </Label>-->
+
+            <!--</StackPanel>-->
+
+
+        </Grid>
+        <Grid Background="Red" Grid.Row="2">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center"  Name="userCart"  >
+                <Label  Foreground="White"  Margin="50,0,100,0" FontSize="20" x:Name="quantityLbl">0</Label>
+
+                <Label  Foreground="White" FontFamily="Comic Sans MS" FontWeight="Bold" Margin="50,0,50,0" FontSize="20">
+                    <Hyperlink NavigateUri="" Foreground="White" Click="ViewCart_Click" FontFamily="Comic Sans MS" ToolTip="View cart">
+                        View Your Cart
+                    </Hyperlink>
+                </Label> 
+               
+                <Label  Foreground="White"  Margin="50,0,0,0"  Content="Rs. " FontSize="20" ></Label>
+                <Label  Foreground="White"  Margin="0,0,50,0"  Content=" 0.00" FontSize="20" Name="priceLbl"></Label>
+            </StackPanel>
+            <StackPanel  Name="backToMenuPanel" VerticalAlignment="Center" Visibility="Collapsed" Orientation="Horizontal">
+                <Grid HorizontalAlignment="Center" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <!--<Label  Foreground="White"  FontSize="16" Name="lblBack" x:Uid="0" Grid.Column="0"  Margin="10,5,10,0">
+                    <Hyperlink NavigateUri="" Foreground="White" Click="BackToMenu_Click" ToolTip="Back" >
+                            <Label Name="BackLink" Foreground="White" FontFamily="Comic Sans MS">Back To Menu</Label>
+                    </Hyperlink>
+                </Label>-->
+                    <Image MouseDown="PlaceOrder_Click" Width="150" Margin="330,0,10,0" Name="order" Grid.Column="0" Grid.ColumnSpan="2" Height="70" HorizontalAlignment="Center" Source="C:\Users\fnaqvi\source\repos\AdminMenuProject\MenuClassLibrary\Images\confirm.png"></Image>
+                    <!--<Button Click="PlaceOrder_Click" Width="150" Margin="200,0,10,0" Name="order" Grid.Column="1" HorizontalAlignment="Center" FontFamily="Comic Sans MS">Confirm Order</Button>-->
+                    <StackPanel  Grid.Column="0">
+                    <Label  Width="Auto"  Content="Your order will arrive in 45 minutes." Margin="200,0,10,0" Foreground="White" FontFamily="Comic Sans MS"  FontWeight="Bold"  Name="waiting" FontSize="20" ></Label>
+                        <StackPanel>
+                            <Label  FontFamily="Comic Sans MS" FontWeight="Black" FontSize="18" Name="dateTime" Margin="200,0,10,0" Foreground="White"  Width="{Binding Width, XPath=waiting}" HorizontalContentAlignment="Center"/>
+                            <!--<Image  Width="150" Height="70"  Source="C:\Users\fnaqvi\source\repos\AdminMenuProject\MenuClassLibrary\Images\waitClock.jpg"></Image>-->
+
+                        </StackPanel>
+                    </StackPanel>
+                    <!--<Label  Foreground="White"   FontSize="16" Name="viewBill"  HorizontalAlignment="Right" Grid.Column="1" Margin="70,5,10,0">
+                   <Hyperlink NavigateUri="" Foreground="White" Click="ViewBill_Click" ToolTip="Bill">
+                            <Label Foreground="White" FontFamily="Comic Sans MS">View Bill?</Label>
+                        </Hyperlink>
+                    </Label>-->
+                    <!--<Image MouseDown="ViewBill_Click"  Margin="150,5,0,0" Name="viewBill" Grid.Column="1" ToolTip="View Bill" Height="50" Source="C:\Users\fnaqvi\source\repos\AdminMenuProject\MenuClassLibrary\Images\bill.jfif" HorizontalAlignment="Right"></Image>-->
+
+                </Grid>
+            </StackPanel>
+        </Grid>
+        <!--<uc:AddItemUC Grid.Row="2" Loaded="AddItemUC_Loaded"/>-->
+    </Grid>
+</Window>
