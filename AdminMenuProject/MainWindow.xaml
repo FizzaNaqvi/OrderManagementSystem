@@ -1,0 +1,220 @@
+﻿<Window x:Class="AdminMenuProject.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AdminMenuProject"
+        xmlns:uc="clr-namespace:AdminMenuProject.UserControls"
+        mc:Ignorable="d"
+        Title="Admin" Width="830" Height="Auto"
+        Closing="Window_Closing">
+    <Window.Resources>
+        <Style x:Key="alignment" TargetType="TextBlock">
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"></RowDefinition>
+            <!--<RowDefinition Height="40"></RowDefinition>-->
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Background="Red"  Orientation="Horizontal" Grid.Row="0">
+            <Ellipse Height="40" Width="40" Margin="10,0,200,0" Name="back" Visibility="Hidden" MouseDown="Back_Click">
+                <Ellipse.Fill>
+                    <ImageBrush Stretch="Fill" ImageSource="C:\Users\fnaqvi\source\repos\AdminMenuProject\MenuClassLibrary\Images\back1.jfif"></ImageBrush>
+                </Ellipse.Fill>
+            </Ellipse>
+            <Label Height="50" Content="ORDER MANAGEMENT SYSTEM" Name="mainLbl" HorizontalContentAlignment="Center" FontSize="25" Foreground="White" FontWeight="Black" Padding="3" VerticalContentAlignment="Center" ></Label>
+        </StackPanel>
+        <!--Main-->
+        <Grid Grid.Row="1" Name="mainView">
+            <!--<Grid.Background>
+                <ImageBrush   Stretch="Fill" ImageSource="C:\Users\fnaqvi\OneDrive - TRAFiX, LLC\Desktop\menu.jpg"></ImageBrush>
+            </Grid.Background>-->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <!--<ColumnDefinition Width="43*"></ColumnDefinition>-->
+                    <ColumnDefinition />
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <!--<RowDefinition></RowDefinition>-->
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Column="0"  VerticalAlignment="Center">
+                    <Ellipse  Height="250" Margin="60,20,60,0"  MouseDown="EllipseMenu_MouseDown">
+                        <Ellipse.Fill>
+                            <ImageBrush   Stretch="Fill" ImageSource="C:\Users\fnaqvi\source\repos\AdminMenuProject\MenuClassLibrary\Images\menu.jpg"></ImageBrush>
+                        </Ellipse.Fill>
+                    </Ellipse>
+                    <Label FontSize="30" FontWeight="Bold" FontFamily="Comic Sans MS"  Foreground="Gray" Width="150" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Margin="120,0" Content="Menu" MouseDown="EllipseMenu_MouseDown"/>
+                </StackPanel>
+                <StackPanel Grid.Column="2" VerticalAlignment="Center">
+                    <Ellipse  Height="250" Margin="60,20,60,0" MouseDown="EllipseOrder_MouseDown">
+                        <Ellipse.Fill>
+                            <ImageBrush   Stretch="Fill" ImageSource="C:\Users\fnaqvi\source\repos\AdminMenuProject\MenuClassLibrary\Images\orderRec1.jfif"></ImageBrush>
+                        </Ellipse.Fill>
+                    </Ellipse>
+                    <Label FontSize="30" FontWeight="Bold" FontFamily="Comic Sans MS"  Foreground="Gray" Width="150" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Margin="120,0" Content="Orders" MouseDown="EllipseOrder_MouseDown"/>
+                </StackPanel>
+                <!--<StackPanel Grid.ColumnSpan="3" Grid.Row="1" >
+                    <Ellipse  Height="167" Margin="270,0,270,0"  MouseDown="EllipseReport_MouseDown">
+                        <Ellipse.Fill>
+                            <ImageBrush   Stretch="Fill" ImageSource="C:\Users\fnaqvi\OneDrive - TRAFiX, LLC\Desktop\report.jfif"></ImageBrush>
+                        </Ellipse.Fill>
+                    </Ellipse>
+                    <Label FontSize="25" FontWeight="Bold" FontFamily="Comic Sans MS"  Foreground="Gray" Width="150" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Margin="320,0" Content="Report"/>
+                </StackPanel>-->
+            </Grid>
+        </Grid>
+        <!--Menu-->
+        <TabControl Grid.Row="1" Margin="0" SelectionChanged="Tab_SelectionChanged" Name="tab" Visibility="Collapsed"  FontFamily="Comic Sans MS"  FontSize="18"  Foreground="Black" FontWeight="DemiBold">
+            <TabItem Header="Starter" FontSize="20" Foreground="Black" FontWeight="DemiBold" >
+                <uc:MenuGridUC x:Name="xyz"/>
+            </TabItem>
+            <TabItem Header="B.B.Q." Width="120" >
+                <uc:MenuGridUC  x:Name="xyz1"/>
+            </TabItem>
+            <TabItem Header="Burgers" Width="120">
+                <uc:MenuGridUC x:Name="xyz2"/>
+            </TabItem>
+            <TabItem Header="Sandwich"  Width="120">
+                <uc:MenuGridUC x:Name="xyz3"/>
+            </TabItem>
+            <TabItem Header="Broast" Width="120">
+                <uc:MenuGridUC x:Name="xyz4"/>
+            </TabItem>
+            <TabItem Header="Roll"   Width="120">
+                <uc:MenuGridUC x:Name="xyz5"/>
+            </TabItem>
+            <TabItem Header="Others" FontSize="20" Foreground="Black" FontWeight="DemiBold" Width="120">
+                <uc:MenuGridUC x:Name="xyz6"/>
+            </TabItem>
+
+        </TabControl>
+
+        <!--Orders grid-->
+        <DataGrid  Name="orderGrid" ItemsSource="{Binding OrderList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  AutoGenerateColumns="False" Background="White" Margin="5,0,5,5" FontSize="12" 
+               GridLinesVisibility="None" CanUserAddRows="False" Visibility="Collapsed" Grid.Row="1" IsReadOnly="True" >
+            <DataGrid.Columns>
+                <!--<DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="50" Visibility="Hidden" ></DataGridTextColumn>-->
+                <DataGridTemplateColumn  Width="50">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image Height="25" Width="20" Stretch="Uniform" Source="C:\Users\fnaqvi\OneDrive - TRAFiX, LLC\Desktop\arrow.jfif" IsEnabled="False"></Image>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Orders" Width="*"  IsReadOnly="True">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                <Label Content="Order #" Height="Auto"  FontFamily="Comic Sans MS" FontSize="16" Margin="10,0,0,5" VerticalContentAlignment="Top" FontWeight="Bold" Name="no">
+                                        <Label.ToolTip>
+                                            <DataGrid ItemsSource="{Binding bill}"  Width="500" AutoGenerateColumns="False" CanUserAddRows="False" GridLinesVisibility="None" FontFamily="Comic Sans MS">
+                                                <DataGrid.Columns>
+                                                    <DataGridTextColumn Header="Item" Binding="{Binding Name}" Width="*"></DataGridTextColumn>
+                                                    <DataGridTextColumn Header="Quantity" Binding="{Binding quantity}" ElementStyle="{StaticResource alignment}"></DataGridTextColumn>
+                                                    <DataGridTextColumn Header="Price per item" Binding="{Binding Price}" ElementStyle="{StaticResource alignment}"></DataGridTextColumn>
+                                                    <DataGridTextColumn Header="Total" Binding="{Binding totalPrice}" ElementStyle="{StaticResource alignment}"></DataGridTextColumn>
+                                                </DataGrid.Columns>
+                                            </DataGrid>
+
+                                        </Label.ToolTip>
+                                </Label>
+                                <Label Content="{Binding Id, Mode=TwoWay}" FontFamily="Comic Sans MS" FontSize="16" Margin="0,0,10,5" VerticalContentAlignment="Top"  FontWeight="Bold"></Label>
+                            </StackPanel>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <!--<DataGridTextColumn Header="Item Name" Binding="{Binding itemName}" Width="*"></DataGridTextColumn>-->
+                <DataGridTextColumn Header="Time" Binding="{Binding dateTime, Mode=TwoWay, StringFormat=g}" Width="150" FontFamily="Comic Sans MS" FontSize="13" FontWeight="Bold" ElementStyle="{StaticResource alignment}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Total" Binding="{Binding totalBill, Mode=TwoWay}" Width="100" FontFamily="Comic Sans MS" FontSize="13" FontWeight="Bold" ElementStyle="{StaticResource alignment}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Status" Binding="{Binding status, Mode=TwoWay}" Width="100" FontFamily="Comic Sans MS" FontSize="13" FontWeight="Bold" x:Name="status"  >
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="{x:Type TextBlock}" >
+                            
+                            <Setter Property="HorizontalAlignment" Value="Center" />
+                            <Setter Property="VerticalAlignment" Value="Center" />
+                            <Style.Triggers>
+                                <Trigger Property="Text" Value="Preparing">
+                                    <Setter Property="Foreground" Value="Red"/>
+                                </Trigger>
+                                <Trigger Property="Text" Value="Delivered">
+                                    <Setter Property="Foreground" Value="Green"/>
+                                </Trigger> 
+                                <Trigger Property="Text" Value="Canceled">
+                                    <Setter Property="Foreground" Value="Gray"/>
+                                </Trigger>
+                              
+
+                            </Style.Triggers>
+
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTemplateColumn Header="Option(s)" Width="Auto" MaxWidth="60" MinWidth="60">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image Height="25" Width="30" Stretch="Fill" ToolTip="Delivered?" Name="status" MouseDown="Status_MouseDown" Uid="{Binding status}">
+                                <Image.Style>
+                                    <Style TargetType="{x:Type Image}">
+                                        <Style.Triggers>
+                                            <Trigger Property="Uid" Value="Delivered">
+                                                <Setter Property="Source"  Value="C:\Users\fnaqvi\source\repos\AdminMenuProject\MenuClassLibrary\Images\delivered.png" ></Setter>
+                                                 <Setter Property="IsEnabled" Value="False"/>
+                                                 <Setter Property="ToolTip" Value="Delivered"/>
+                                            </Trigger>
+                                            <Trigger Property="Uid" Value="Preparing">
+                                                <Setter Property="Source"  Value="C:\Users\fnaqvi\source\repos\AdminMenuProject\MenuClassLibrary\Images\clock.jfif"></Setter>
+
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Image.Style>
+                            </Image>
+                            </DataTemplate>
+                        
+                        </DataGridTemplateColumn.CellTemplate>
+                     </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <!--Add Menu Item Grid-->
+        <Grid Background="Red" Grid.Row="2" Name="addControls" Visibility="Collapsed" Height="100">
+            <StackPanel Orientation="Horizontal" Margin="10" HorizontalAlignment="Center">
+                <TextBox Name="txtId" Visibility="Collapsed" Text="{Binding MenuItem.Id, Mode=TwoWay}"></TextBox>
+                <Label Content="Item Name:" VerticalContentAlignment="Center" Foreground="White" FontWeight="Bold"></Label>
+                <TextBox Name="txtName" Width="100" Height="20" Margin="0,0,5,0" Text="{Binding MenuItem.Name, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                <Label Content="Description:" VerticalContentAlignment="Center" Foreground="White" FontWeight="Bold"></Label>
+                <TextBox Name="txtDesc" Width="150" Height="20" Text="{Binding MenuItem.Desc, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                <Label Content="Type:" VerticalContentAlignment="Center"  Foreground="White" FontWeight="Bold" Margin="0,0,5,0"></Label>
+                <ComboBox  Width="100" Height="20" VerticalContentAlignment="Center" HorizontalContentAlignment="Left"  Name="typeCombo" 
+                    SelectedItem="{Binding MenuItem.Type, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding MenuItemTypes}">
+                    <!--<ComboBoxItem Content="Starter"/>
+                    <ComboBoxItem Content="B.B.Q."/>
+                    <ComboBoxItem Content="Burgers"/>
+                    <ComboBoxItem Content="Sandwich"/>
+                    <ComboBoxItem Content="Broast"/>
+                    <ComboBoxItem Content="Roll"/>
+                    <ComboBoxItem Content="Others"/>-->
+                </ComboBox>
+                <Label Content="Price:" VerticalContentAlignment="Center" Height="30" Margin="5,0,5,0"  Foreground="White" FontWeight="Bold"></Label>
+                <TextBox Width="60" Height="20" Name="txtPrice" Text="{Binding MenuItem.Price, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" PreviewTextInput="TxtPrice_PreviewTextInput"></TextBox>
+                <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal"  Name="updatePanel" Visibility="Collapsed">
+                        <Image Height="15" Width="15" Stretch="Fill" Source="C:\Users\fnaqvi\source\repos\AdminMenuProject\MenuClassLibrary\Images\edit.jfif" ToolTip="Edit" MouseDown="Update_Click" Margin="5,0,0,0"></Image>
+                        <Image Height="15" Width="15" Stretch="Fill" Source="C:\Users\fnaqvi\source\repos\AdminMenuProject\MenuClassLibrary\Images\deleteBtn1.jfif" ToolTip="Cancel" MouseDown="Cancel_Click" Margin="5,0,0,0"></Image>
+                    </StackPanel>
+                    <Image Height="15" Width="15" Stretch="Fill" Source="C:\Users\fnaqvi\source\repos\AdminMenuProject\MenuClassLibrary\Images\add.jfif" ToolTip="Add To Menu" MouseDown="AddToMenu" Name="AddBtn" Margin="5,0,5,0" ></Image>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>
